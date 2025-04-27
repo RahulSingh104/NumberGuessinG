@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Number Guessing Game</title>
+ <style>
+ body {
+ font-family: 'Georgia', serif;
+ background-color: #f1d5d5;
+ margin: 0;
+ padding: 0;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ min-height: 100vh;
+ color: #fff;
+ }
+ .container {
+ text-align: center;
+ background-color: #ff24f8a5;
+ border-radius: 10px;
+ padding: 20px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+ }
+ h1 {
+ color: #000000;
+ font-size: 36px;
+ margin-bottom: 10px;
+ }
+ p {
+ color: #4b6138;
+ font-size: 18px;
+ line-height: 1.5;
+ margin-bottom: 20px;
+ }
+ .form {
+ margin-top: 20px;
+ }
+ label {
+ font-size: 18px;
+ color: #111010;
+ margin-right: 10px;
+ }
+ .guessField {
+ padding: 10px;
+ font-size: 16px;
+ }
+ .guessSubmit {
+ padding: 10px 20px;
+ font-size: 16px;
+ background-color: #df2ab1;
+ color: #fff;
+ border: none;
+ cursor: pointer;
+ border-radius: 5px;
+ }
+ .result {
+ color: #ff0202;
+ margin-top: 10px;
+ font-size: 18px;
+ }
+ .highscore {
+ margin-top: 20px;
+ color: #000000;
+ font-size: 20px;
+ }
+ @keyframes celebrate {
+ 0% {
+ transform: translateY(0);
+ }
+ 50% {
+ transform: translateY(-20px);
+ }
+ 100% {
+ transform: translateY(0);
+ }
+ }
+ .celebrate {
+ color: #ff4500;
+ font-size: 24px;
+ margin-top: 20px;
+ animation: celebrate 1s ease-in-out;
+ }
+ </style>
+</head>
+<body>
+ <div class="container">
+ <h1>Guess The Number</h1>
+ <p>We have selected a random number between 1 - 100. See if you can
+guess it.</p>
+ <div class="form">
+ <label for="guessField">Enter a guess:</label>
+ <input type="text" id="guessField" class="guessField">
+ <input type="submit" value="Submit guess" class="guessSubmit"
+id="submitguess">
+ </div><p id="result" class="result"></p>
+ <p class="highscore">Highscore: <span id="highscore">0</span></p>
+ <p id="celebrate" class="celebrate"></p>
+ </div>
+ <script type="text/javascript">
+ let y = Math.floor(Math.random() * 100 + 1);
+ let guess = 1;
+ let highscore = localStorage.getItem("highscore") || 0;
+ document.getElementById("highscore").innerText = highscore;
+ document.getElementById("submitguess").onclick = function () {
+ let x = document.getElementById("guessField").value;
+ if (x == y) {
+ if (highscore === 0 || guess < highscore) {
+ highscore = guess;
+localStorage.setItem("highscore", highscore);
+document.getElementById("highscore").innerText =
+highscore;
+ }
+ document.getElementById("result").innerText =
+"Congratulations! You guessed right in " + guess + " guesses.";
+
+ document.getElementById("celebrate").innerText = "  🎉  Well
+done!";
+ // Show pop-up with number of guesses
+ alert("Congratulations! You guessed right in " + guess + "
+guesses.");
+ resetGame();
+ } else if (x > y) {
+ guess++;
+ document.getElementById("result").innerText = "OOPS SORRY!!
+Try a smaller number.";
+ } else {
+ guess++;
+ document.getElementById("result").innerText = "OOPS SORRY!!
+Try a greater number.";
+ }
+ }
+ function resetGame() {
+ y = Math.floor(Math.random() * 100 + 1);
+ guess = 1;
+ document.getElementById("guessField").value = "";
+ document.getElementById("result").innerText = "";
+ document.getElementById("celebrate").innerText = "";
+ }
+ </script>
+</body>
+</html>
