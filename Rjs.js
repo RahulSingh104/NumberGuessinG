@@ -1,5 +1,5 @@
 /*
-Number Guessing Game 
+Number Guessing Game  with javascript
 computer =1 to 100
 user has to guessthe number
 The user gets 3 chances to do so
